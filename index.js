@@ -1,62 +1,84 @@
+
 let selectfrom=['rock','paper','scissors']
-let playerchoice
-let compscore=0
+let compscore=0;
 let playerscore=0;
+const div=document.createElement(`div`)
+const label=document.createElement(`label`)
+
+div.setAttribute(`id`,'result')
+document.body.append(div)
+label.setAttribute(`id`,'label')
+div.appendChild(label)
+
 function getComputerChoice(){
     return selectfrom[Math.floor(Math.random()*3)]
 }
-function playRound(playerSelection,computerSelection){
-    if(playerSelection==='rock' && computerSelection==='scissors'){
+function chosensrock(playerchoice,computerSelection){
+    if( computerSelection==='scissors'){
         playerscore++
-        console.log("you win. score you:",playerscore,"computer",compscore)
+        label.textContent=`Computer chose rock.you win. score you:${playerscore} computer ${compscore}`
     }
-    else if(playerSelection==='rock' && computerSelection==='paper'){
+    else if(computerSelection==='paper'){
         compscore++
-        console.log("you lose. score you:",playerscore,"computer",compscore)
+        label.textContent= `Computer chose scissors .you lose. score you:${playerscore} computer ${compscore}`
+
     }
-    else if(playerSelection==='rock' && computerSelection==='rock'){
+    else if(computerSelection==='rock'){
+        label.textContent=`Computer chose paper.tie. score you:${playerscore} computer score ${compscore}`}
+    if(playerscore===5){
+       alert("You got 5 points you win")   
+       playerscore=0
+       compscore=0
+       display()
 
-        console.log("tie. score you:",playerscore,'computer score',compscore)
+    }
+}
+function chosenscissors(playerchoice,computerSelection){
+     if(computerSelection==='scissors'){
+        label.textContent=`Computer chose paper.tie. score you:${playerscore} computer score ${compscore}`
+    }
+    else if(computerSelection==='rock'){
+        compscore++
+        label.textContent= `Computer chose scissors .you lose. score you:${playerscore} computer ${compscore}`
+    }
+    else if(computerSelection==='paper'){
+        playerscore++
+        label.textContent=`Computer chose rock.you win. score you:${playerscore} computer ${compscore}`
+ 
+    }
+    if(playerscore===5){
+        alert("You got 5 points you win")   
+        playerscore=0
+       compscore=0
+       display()
+    }
 
-    }else if(playerSelection==='scissors' && computerSelection==='scissors'){
+}
+function chosenpaper(playerchoice,computerSelection){
+    if( computerSelection==='rock'){
+        playerscore++
+        label.textContent=`Computer chose rock.you win. score you:${playerscore} computer ${compscore}`
         
-        console.log("tie. score you:",playerscore,'computer score',compscore)
     }
-    else if(playerSelection==='scissors' && computerSelection==='rock'){
+    else if( computerSelection==='paper'){
+        label.textContent=`Computer chose paper.tie. score you:${playerscore} computer score ${compscore}`
+    }
+    else if(computerSelection==='scissors'){
         compscore++
-        console.log("you lose. score you:",playerscore,"computer",compscore)
+        label.textContent= `Computer chose scissors .you lose. score you:${playerscore} computer ${compscore}`
     }
-    else if(playerSelection==='scissors' && computerSelection==='paper'){
-        playerscore++
-        console.log("you win. score you:",playerscore,"computer",compscore)
-    }
-    else if(playerSelection==='paper' && computerSelection==='rock'){
-        playerscore++
-        console.log("you win. score you:",playerscore,"computer",compscore)
-    }
-    else if(playerSelection==='paper' && computerSelection==='paper'){
+    if(playerscore===5){
+       alert("You got 5 points you win") 
+       playerscore=0
+       compscore=0
+       display()
      
-        console.log("tie. score you:",playerscore,'computer score',compscore)
-    }
-    else if(playerSelection==='paper' && computerSelection==='scissors'){
-        compscore++
-        console.log("you lose. score you:",playerscore,"computer",compscore)
-    }
-    else{
-        console.log("some eror")
-    }
-
-
-    
-    console.log(playerSelection)
-
-}
-function playGame(){
-    for(let i = 0;i<5;i++)
-    {
-        playerchoice=window.prompt("Rock,paper,scissors").toLowerCase();
-
-         playRound(playerchoice,getComputerChoice())
+        
     }
 }
-playGame()
+const rock=document.getElementById('rock').addEventListener(`click`,function (evenet){chosensrock(`rock`,getComputerChoice())})
+const scissors=document.getElementById(`scissors`).addEventListener(`click`,function(something){chosenscissors(`scissors`,getComputerChoice())})
+const paper=document.getElementById(`paper`).addEventListener('click',function(somealso){chosenpaper('paper',getComputerChoice())})
+function display(){
+    label.textContent=`Player score:${playerscore},Computer Score ${compscore}`
+}
